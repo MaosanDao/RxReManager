@@ -1,4 +1,6 @@
 # RxReManager
+![](https://img.shields.io/badge/jceter-v0.0.1-blut.svg)
+
 一个封装了RxJava和Retrofit的库，它可以快速的进行搭建进行网络请求。
 
 ## 使用说明
@@ -48,4 +50,10 @@ mService = RetrofitInitBuilder.builder()
 
 
 
+```
+
+### 引入方式
+#### 将lastVersion改为上方标签中的版本即可
+```
+compile 'cn.vangelis:rxrelib:lastVersion'
 ```
