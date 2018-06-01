@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RxReLib</string>
+
+    <!-- 异常提示 -->
+    <string name="exception_no_http_result_listener">请设置HttpResultListener</string>
+    <string name="exception_no_cache_key">请设置CacheKey</string>
+    <string name="exception_no_cache">该对象没有缓存</string>
+    <string name="exception_no_success_code">请设置成功code</string>
+
+</resources>
