@@ -3,9 +3,9 @@
 
 ## 使用说明
 
-###初始化
+### 初始化
 
-```
+```java
 在BaseApplication中：
 
 mService = RetrofitInitBuilder.builder()
@@ -16,8 +16,8 @@ mService = RetrofitInitBuilder.builder()
                 
 并将mService提供出去
 ```
-###使用
-```
+### 使用
+```java
  RxObservableManager.builder()
                 .setContext(this)
                 .setSuccessCode(200)//这是请求成功码
