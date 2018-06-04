@@ -6,12 +6,10 @@ import android.util.Log;
 
 import com.orhanobut.hawk.Hawk;
 import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import java.util.concurrent.TimeUnit;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import cn.vangelis.rxrelib.config.GlobalConfig;
 import cn.vangelis.rxrelib.listener.HttpResultListener;
 import cn.vangelis.rxrelib.model.HttpResult;
 import io.reactivex.Observable;
@@ -41,7 +39,6 @@ public class RxObservableManager {
     private SweetAlertDialog mWaitDialog;
     private HttpResultListener mResultListener;
     private String mCacheKey;
-    private int mSuccessCode = -1;
 
     /**
      * 是否显示加载弹出框
@@ -133,12 +130,6 @@ public class RxObservableManager {
         return this;
     }
 
-    public RxObservableManager setSuccessCode(int code) {
-        this.mSuccessCode = code;
-        return this;
-    }
-
-
     public <T> RxObservableManager toSubscribe(final T t) {
         mObservable
                 .subscribeOn(Schedulers.io())
@@ -175,21 +166,16 @@ public class RxObservableManager {
                     @Override
                     public boolean test(HttpResult httpResult) throws Exception {
                         Log.i(TAG, "Predicate");
-                        if(mSuccessCode!= -1){
-                            if (httpResult.getCode() == mSuccessCode) {
-                                return true;
+                        if (httpResult.getCode() == GlobalConfig.SUCCESS_CODE) {
+                            return true;
+                        } else {
+                            if (mResultListener != null) {
+                                mResultListener.fail(httpResult.getCode(), httpResult.getDescription());
                             } else {
-                                if (mResultListener != null) {
-                                    mResultListener.fail(httpResult.getCode(), httpResult.getDescription());
-                                } else {
-                                    throw new NullPointerException(mContext
-                                            .getString(R.string.exception_no_http_result_listener));
-                                }
-                                return false;
+                                throw new NullPointerException(mContext
+                                        .getString(R.string.exception_no_http_result_listener));
                             }
-                        }else{
-                            throw new NullPointerException(mContext
-                                    .getString(R.string.exception_no_success_code));
+                            return false;
                         }
                     }
                 })

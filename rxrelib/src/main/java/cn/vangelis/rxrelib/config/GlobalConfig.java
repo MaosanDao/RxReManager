@@ -11,12 +11,7 @@ package cn.vangelis.rxrelib.config;
 public class GlobalConfig {
 
     /**
-     * 读取超时时间
+     * 请求成功Code
      */
-    public static final int DEFAULT_READ_TIME_OUT = 10;
-
-    /**
-     * 写入超时时间
-     */
-    public static final int DEFAULT_WRITE_TIME_OUT = 10;
+    public static int SUCCESS_CODE = 200;
 }

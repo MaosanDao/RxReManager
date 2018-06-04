@@ -6,10 +6,9 @@ import android.util.Log;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
+import cn.vangelis.rxrelib.RetrofitInitBuilder;
 import cn.vangelis.rxrelib.RxObservableManager;
 import cn.vangelis.rxrelib.listener.HttpResultListener;
-
-import static cn.vangelis.rxremanager.BaseApplication.mService;
 
 public class MainActivity extends RxAppCompatActivity {
 
@@ -21,12 +20,12 @@ public class MainActivity extends RxAppCompatActivity {
 
         RxObservableManager.builder()
                 .setContext(this)
-                .setSuccessCode(200)
                 .setWaitDialog(true)
                 .setForceRequest(true)
                 .setLifecycleProvider(bindUntilEvent(ActivityEvent.PAUSE))
                 .setCacheKey("123")
-                .setObservable(mService.getAdInfo("尔虞我诈", "e0c4a9ec40a031f7e3ab0ae2d5020218"))
+                .setObservable(RetrofitInitBuilder.createService(SheCarInterfaceList.class)
+                        .getAdInfo("尔虞我诈", "e0c4a9ec40a031f7e3ab0ae2d5020218"))
                 .toSubscribe(Object.class)
                 .setResultListener(new HttpResultListener<Object>() {
                     @Override

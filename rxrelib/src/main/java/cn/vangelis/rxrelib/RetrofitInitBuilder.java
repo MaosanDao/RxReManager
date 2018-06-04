@@ -20,9 +20,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInitBuilder {
 
-    private Retrofit mRetrofit;
+    private static Retrofit mRetrofit;
     private String mBaseUrl;
     private long mConnectTime;
+    private static int mReadTimeOut = 10;
+    private static int mWriteTimeOut = 10;
+    private static String mHttpLogTag = "HttpLog";
 
     private static class SingletonHolder {
         private static final RetrofitInitBuilder INSTANCE = new RetrofitInitBuilder();
@@ -39,12 +42,11 @@ public class RetrofitInitBuilder {
      * 初始化Retrofit
      */
     private void initRetrofit() {
-
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
-                .addInterceptor(new LoggerInterceptor("HttpLog", true))
+                .addInterceptor(new LoggerInterceptor(mHttpLogTag, true))
                 .connectTimeout(mConnectTime, TimeUnit.SECONDS)
-                .readTimeout(GlobalConfig.DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS)
-                .writeTimeout(GlobalConfig.DEFAULT_WRITE_TIME_OUT, TimeUnit.SECONDS);
+                .readTimeout(mReadTimeOut, TimeUnit.SECONDS)
+                .writeTimeout(mWriteTimeOut, TimeUnit.SECONDS);
 
         OkHttpClient okHttpClient = builder.build();
 
@@ -77,14 +79,62 @@ public class RetrofitInitBuilder {
     }
 
     /**
+     * 设置成功code
+     *
+     * @param code 服务器返回数据成功Code
+     */
+    public RetrofitInitBuilder setSuccessCode(int code) {
+        GlobalConfig.SUCCESS_CODE = code;
+        return this;
+    }
+
+    /**
+     * 设置读取超时时间
+     *
+     * @param time 秒
+     */
+    public RetrofitInitBuilder setReadTimeOut(int time) {
+        mReadTimeOut = time;
+        return this;
+    }
+
+    /**
+     * 设置写入超时时间
+     *
+     * @param time 秒
+     */
+    public RetrofitInitBuilder setWriteTimeOut(int time) {
+        mWriteTimeOut = time;
+        return this;
+    }
+
+    /**
+     * 设置httpLog的tag
+     *
+     * @param tag TAG
+     */
+    public RetrofitInitBuilder setHttpLogTag(String tag) {
+        mHttpLogTag = tag;
+        return this;
+    }
+
+
+    /**
      * 获取 Service
      *
      * @return InterfaceList Service
      */
-    public Retrofit build() {
+    public RetrofitInitBuilder build() {
         if (mRetrofit == null) {
             initRetrofit();
         }
-        return mRetrofit;
+        return this;
+    }
+
+    public static <T> T createService(Class<T> c) {
+        if (mRetrofit == null) {
+            throw new NullPointerException("请先初始化");
+        }
+        return mRetrofit.create(c);
     }
 }

@@ -14,7 +14,6 @@ import cn.vangelis.rxrelib.RetrofitInitBuilder;
 
 public class BaseApplication extends Application {
 
-    public static SheCarInterfaceList mService;
 
     @Override
     public void onCreate() {
@@ -24,11 +23,13 @@ public class BaseApplication extends Application {
     }
 
     private void init() {
-
-        mService = RetrofitInitBuilder.builder()
+        RetrofitInitBuilder.builder()
                 .setBaseUrl("http://v.juhe.cn")
                 .setConnectTimeOut(12)
-                .build()
-                .create(SheCarInterfaceList.class);
+                .setSuccessCode(300)
+                .setHttpLogTag("HttpLogLog")
+                .setReadTimeOut(10)
+                .setWriteTimeOut(10)
+                .build();
     }
 }
