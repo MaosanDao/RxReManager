@@ -1,5 +1,5 @@
 # RxReManager
-![](https://img.shields.io/badge/jcenter-0.0.1-blue.svg)
+![](https://img.shields.io/badge/jcenter-0.0.2-red.svg)
 
 一个封装了RxJava和Retrofit的库，它可以快速的进行搭建进行网络请求。
 
@@ -10,24 +10,29 @@
 ```java
 在BaseApplication中：
 
-mService = RetrofitInitBuilder.builder()
-                .setBaseUrl("http://v.juhe.cn")
-                .setConnectTimeOut(12)
-                .build()
-                .create(SheCarInterfaceList.class);
-                
-并将mService提供出去
+RetrofitInitBuilder.builder()
+                .setBaseUrl("http://v.juhe.cn")//设置BaseUrl
+                .setConnectTimeOut(12)//设置请求超时时间
+                .setSuccessCode(300)//设置服务器成功返回的code
+                .setHttpLogTag("HttpLogLog")//设置网络请求的Log的Tag
+                .setReadTimeOut(10)//设置读取超时时间
+                .setWriteTimeOut(10)//设置写入超时时间
+                .build();
 ```
 ### 使用
 ```java
+
+ //这里获取接口的定义类
+ InterfaceClass class = RetrofitInitBuilder.createService(InterFaceClass.class);
+ 
+ //开始调用
  RxObservableManager.builder()
                 .setContext(this)
-                .setSuccessCode(200)//这是请求成功码
                 .setWaitDialog(true)//是否显示请求弹出框
                 .setForceRequest(true)//是否强制请求
                 .setLifecycleProvider(bindUntilEvent(ActivityEvent.PAUSE))//设置请求周期（在pause退出的时候，停止请求）
                 .setCacheKey("123")//设置缓存码（可以在不请求的时候，通过拿到缓存来获取数据）
-                .setObservable(mService.getAdInfo("尔虞我诈", "e0c4a9ec40a031f7e3ab0ae2d5020218"))
+                .setObservable(<这里使用class来调用你的接口中的方法>)
                 .toSubscribe(Object.class)
                 .setResultListener(new HttpResultListener<Object>() {
                     @Override
@@ -53,7 +58,14 @@ mService = RetrofitInitBuilder.builder()
 ```
 
 ### 引入方式
+
 #### 将lastVersion改为上方标签中的版本即可
 ```
 compile 'cn.vangelis:rxrelib:lastVersion'
 ```
+
+### 版本更新
+
+* 2018.06.04 暴露更多的设置信息
+
+* 2018.06.01 初始化项目
