@@ -69,3 +69,9 @@ compile 'cn.vangelis:rxrelib:lastVersion'
 * 2018.06.04 暴露更多的设置信息
 
 * 2018.06.01 初始化项目
+
+### Bug记录
+
+* 会出现几率性的弹出框显示崩溃
+错误
+
