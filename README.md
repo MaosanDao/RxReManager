@@ -61,7 +61,7 @@ RetrofitInitBuilder.builder()
 
 #### 将lastVersion改为上方标签中的版本即可
 ```
-compile 'cn.vangelis:rxrelib:lastVersion'
+implementation 'cn.vangelis:rxrelib:lastVersion'
 ```
 
 ### 版本更新
