@@ -78,3 +78,4 @@ implementation 'cn.vangelis:rxrelib:$lastVersion$'
 
 * 用户可以选择继承或者不继承RxAppCompatActivity，而不是直接强制继承
 * 文档中还要详细说明BaseActivity需要继承RxAppCompatActivity才可以使用RxJava的生命周期控制
+* 增加对Service的支持
