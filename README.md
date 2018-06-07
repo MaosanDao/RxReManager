@@ -61,7 +61,7 @@ RetrofitInitBuilder.builder()
 
 #### 将lastVersion改为上方标签中的版本即可
 ```
-implementation 'cn.vangelis:rxrelib:lastVersion'
+implementation 'cn.vangelis:rxrelib:$lastVersion$'
 ```
 
 ### 版本更新
@@ -72,6 +72,9 @@ implementation 'cn.vangelis:rxrelib:lastVersion'
 
 ### Bug记录
 
-* 会出现几率性的弹出框显示崩溃
-错误
+* 会出现几率性的弹出框显示崩溃错误
 
+### Todo List
+
+* 用户可以选择继承或者不继承RxAppCompatActivity，而不是直接强制继承
+* 文档中还要详细说明BaseActivity需要继承RxAppCompatActivity才可以使用RxJava的生命周期控制
