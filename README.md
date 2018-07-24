@@ -76,7 +76,7 @@ public class HttpResult<T> {
     private T response;//具体返回json数据
 }
 ```
-**如果另有不同的返回格式，需要自行用导入源代码的方式进行使用**
+**如果另有不同的返回格式，需要自行用[导入源代码的方式](https://github.com/MaosanDao/AndroidNote/blob/master/ImportLib.md)进行使用**
 
 ### 版本更新
 
