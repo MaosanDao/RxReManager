@@ -62,8 +62,21 @@ RetrofitInitBuilder.builder()
 
 #### 将lastVersion改为上方标签中的版本即可
 ```
-implementation 'cn.vangelis:rxrelib:$lastVersion$'
+implementation 'cn.vangelis:rxrelib:lastVersion'
 ```
+### 说明
+**本框架适用于服务器返回的数据格式为：**
+```java
+public class HttpResult<T> {
+
+    private int code;
+    private String description;
+    private String requestId;
+    private String timestamp;
+    private T response;//具体返回json数据
+}
+```
+**如果另有不同的返回格式，需要自行用导入源代码的方式进行使用**
 
 ### 版本更新
 
