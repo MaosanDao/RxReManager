@@ -1,5 +1,6 @@
 # RxReManager
 ![](https://img.shields.io/badge/jcenter-0.0.2-red.svg)
+![](https://img.shields.io/badge/minSDK-14-brightgreen.svg)
 
 一个封装了RxJava和Retrofit的库，它可以快速的进行搭建进行网络请求。
 
